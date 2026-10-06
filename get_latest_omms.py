@@ -4,9 +4,9 @@ from io import StringIO
 
 import requests
 
-from src.omm import CACHE_PATH, SATELLITE_NAMES
+from src.omm import OMM_FILE_PATH, SATELLITE_NAMES
 
-OMM_URL = "https://retlector.eu/weather/csv"
+OMM_URL = "https://retlector.eu/active/csv"
 
 
 def download_latest_omms() -> list[dict[str, str]]:
@@ -27,14 +27,14 @@ def download_latest_omms() -> list[dict[str, str]]:
     return records
 
 
-def update_cache() -> None:
-    """Replace the local cache only after a complete response is received"""
+def update_omm_file() -> None:
+    """Updates latest_omms.json with current OMMs"""
     records = download_latest_omms()
-    temporary_path = CACHE_PATH.with_suffix(".json.tmp")
+    temporary_path = OMM_FILE_PATH.with_suffix(".json.tmp")
     temporary_path.write_text(json.dumps(records, indent=2) + "\n", encoding="utf-8")
-    temporary_path.replace(CACHE_PATH)
-    print(f"Saved {len(records)} OMM records to {CACHE_PATH}")
+    temporary_path.replace(OMM_FILE_PATH)
+    print(f"Saved {len(records)} OMM records to {OMM_FILE_PATH}")
 
 
 if __name__ == "__main__":
-    update_cache()
+    update_omm_file()
