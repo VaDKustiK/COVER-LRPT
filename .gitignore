@@ -147,5 +147,5 @@ cython_debug/
 # uv specific
 .uv/
 
-# testing scripts folder
-.testing/
+# personal testing scripts
+/testing/
