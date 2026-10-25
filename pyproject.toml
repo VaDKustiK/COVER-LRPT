@@ -15,6 +15,7 @@ dependencies = [
 [dependency-groups]
 dev = [
     "pre-commit>=4.6.2",
+    "pytest>=9.1.1",
     "ruff>=0.16.5",
     "ty>=0.0.78",
 ]
@@ -58,6 +59,7 @@ indent-style = "space"
 testpaths = ["tests"]
 python_files = "test_*.py"
 python_functions = "test_*"
+pythonpath = ["."]
 
 [tool.ty.environment]
 python-version = "3.14"
@@ -67,4 +69,3 @@ error-on-warning = false
 
 [tool.ty.rules]
 all = "warn"
-
