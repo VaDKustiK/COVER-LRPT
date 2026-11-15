@@ -3,9 +3,9 @@ import os
 from dotenv import load_dotenv
 from skyfield.api import load, wgs84
 
-from omm import load_satellites
+from .omm import load_satellites
 
-SATELLITE_NAME = "METEOR-M2 3"
+SATELLITE_NAME = "METEOR-M2 4"
 ELEVATION_DEGREES = 30.0
 PREP_TIME_MINUTES = 10
 SEARCH_DAYS = 1.0

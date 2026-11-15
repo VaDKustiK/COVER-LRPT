@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 import cv2
 import numpy as np
@@ -14,11 +14,14 @@ MIN_SEGMENT_LINES = 32
 DAYLIGHT_MEDIAN = 30
 
 
-def read_channel(product_dir: Path, product: dict, number: int) -> np.ndarray:
+def read_channel(product_dir: Path, product: dict[str, Any], number: int) -> np.ndarray:
     """Channel PNG as a 2-D array; 'number' is the MSU-MR channel"""
     for img in product["images"]:
         if int(img["abs_index"]) + 1 == number:
-            arr = cv2.imread(str(product_dir / img["file"]), cv2.IMREAD_UNCHANGED)
+            path = (product_dir / img["file"]).resolve()
+            if not path.is_relative_to(product_dir.resolve()):
+                raise ValueError("channel file must stay inside the product directory")
+            arr = cv2.imread(str(path), cv2.IMREAD_UNCHANGED)
             if arr is None or arr.ndim != 2:
                 raise ValueError(f"cannot read grayscale image {img['file']}")
             return arr

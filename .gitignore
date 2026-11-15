@@ -149,3 +149,6 @@ cython_debug/
 
 # personal testing scripts
 /testing/
+
+# Local development journal; research specifications/reports remain versioned.
+/logs.md

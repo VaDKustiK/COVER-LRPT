@@ -1,5 +1,6 @@
 import re
 from dataclasses import dataclass
+from datetime import UTC, datetime
 
 import numpy as np
 
@@ -10,6 +11,8 @@ WINDOW_BEFORE_S = 60.0
 WINDOW_AFTER_S = 1200.0
 TIME_OUTLIER_S = 0.05
 MIN_SEGMENT_FRAMES = 8
+MIN_CONSISTENT_FRACTION = 0.99
+MAX_INTERNAL_RMS_S = 1e-5
 
 
 @dataclass(frozen=True)
@@ -27,18 +30,25 @@ class TimeModel:
 
 
 def aos_from_folder(name: str) -> float:
-    """The folder name starts with the AOS"""
+    """Recording-window anchor, not an independently measured signal AOS."""
     m = PASS_DIR_RE.match(name)
     if m is None:
         raise ValueError(f"unexpected pass folder name: {name}")
-    return float(m.group(1))
+    anchor = float(m.group(1))
+    readable = datetime.strptime(m.group(2), "%Y%m%dT%H%M%SZ").replace(tzinfo=UTC).timestamp()
+    if anchor != readable:
+        raise ValueError(f"folder Unix and readable UTC timestamps disagree: {name}")
+    return anchor
 
 
 def build_time_model(raw_timestamps, aos: float) -> TimeModel:
+    """Fit internal frame-time consistency; absolute UTC accuracy is unknown."""
     ts = np.asarray(raw_timestamps, dtype=float)
+    if ts.ndim != 1 or not np.isfinite(aos):
+        raise ValueError("timestamps must be one-dimensional and the recording anchor finite")
     k = np.arange(ts.size, dtype=float)  # frame indices
 
-    # only timestamps wit (AOS - WINDOW_BEFORE_S) to (AOS + WONDOW_AFTER_S)
+    # Empirical screening window around the recording anchor; not a UTC calibration.
     in_window = (ts >= aos - WINDOW_BEFORE_S) & (ts <= aos + WINDOW_AFTER_S)
     kk, tt = k[in_window], ts[in_window]
     if kk.size < MIN_SEGMENT_FRAMES:
@@ -66,12 +76,13 @@ def build_time_model(raw_timestamps, aos: float) -> TimeModel:
 
 
 def timing_status(model: TimeModel) -> str:
+    """Legacy consistency label. 'ok' does not imply full coverage or accurate UTC."""
     if not model.segments:
         return "no_timing"
     if len(model.segments) > 1:
         return "multi_segment"
     covered = model.segments[0].frames.size / model.n_candidates
-    ok = covered >= 0.99 and model.segments[0].rms_s < 1e-5
+    ok = covered >= MIN_CONSISTENT_FRACTION and model.segments[0].rms_s < MAX_INTERNAL_RMS_S
     if ok:
         return "ok"
     else:
@@ -79,7 +90,13 @@ def timing_status(model: TimeModel) -> str:
 
 
 def line_times(model: TimeModel, n_frames: int, lines_per_frame: int = 8) -> np.ndarray:
-    """Unix time of every image line"""
+    """Approximate Unix seconds per raw row; unsupported rows remain NaN.
+
+    Assumes each frame timestamp anchors its first row and rows are uniformly
+    spaced across the fitted frame period. No SatDump timestamp_offset is applied.
+    """
+    if lines_per_frame <= 0 or n_frames < 0:
+        raise ValueError("lines_per_frame must be positive and n_frames nonnegative")
     out = np.full(n_frames * lines_per_frame, np.nan)
     for s in model.segments:
         lines = (s.frames[:, None] * lines_per_frame + np.arange(lines_per_frame)).ravel()

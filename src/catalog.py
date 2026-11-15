@@ -16,11 +16,12 @@ def find_products(root: Path) -> list[Path]:
 
 
 def day_candidates(rows: list[dict[str, Any]], norad: int, min_longest_s: float = 300.0) -> list[dict[str, Any]]:
-    """Day passes of one satellite with trusted timing in time order"""
+    """Day passes with consistent identity/timing. Regenerate legacy catalogs first."""
     picks = [
         r
         for r in rows
         if r.get("norad") == norad
+        and r.get("identity_status") == "consistent"
         and r.get("light") == "day"
         and r["status"] == "ok"
         and (r["longest_s"] or 0) >= min_longest_s
@@ -30,12 +31,15 @@ def day_candidates(rows: list[dict[str, Any]], norad: int, min_longest_s: float 
 
 def analyse_pass(folder: Path) -> dict[str, Any]:
     """One catalog row for the pass in folder"""
-    p = load_pass(folder, channels=(2, 4))
+    p = load_pass(folder, channels=(2, 4), strict_identity=False)
     row: dict[str, Any] = {
         "name": p.name,
         "norad": p.norad,
         "aos_utc": datetime.fromtimestamp(p.aos, UTC).isoformat(timespec="seconds"),
         "status": p.status,
+        "identity_status": p.identity.status if p.identity else "incomplete",
+        "identity_issues": list(p.identity.issues) if p.identity else ["not checked"],
+        "timed_fraction": p.timed_fraction,
         "channels": p.channels_available,
         "n_lines": p.n_lines,
         "usable_frac": None,
@@ -43,7 +47,9 @@ def analyse_pass(folder: Path) -> dict[str, Any]:
         "light": None,
         "skip": None,
     }
-    if not p.channels_available:
+    if not p.identity or p.identity.status != "consistent":
+        row["skip"] = "identity_" + row["identity_status"]
+    elif not p.channels_available:
         row["skip"] = "no_images"
     elif p.status == "no_timing":
         row["skip"] = "no_timing"
