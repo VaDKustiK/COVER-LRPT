@@ -9,7 +9,7 @@ from src.dataset_audit import REPO, build_audit, json_bytes, load_selection, mai
 def audit_inputs(folder, tmp_path):
     selection = tmp_path / "selection.json"
     selection.write_text(json.dumps({"dev": [folder.name]}))
-    policy = json.loads((REPO / "research/dataset_policy.json").read_text())
+    policy = json.loads((REPO / "config/dataset_policy.json").read_text())
     policy["selection_roles"] = {"dev": "development"}
     policy_path = tmp_path / "policy.json"
     policy_path.write_bytes(json_bytes(policy))
@@ -79,7 +79,17 @@ def test_symlink_cannot_escape_archive(tmp_path):
 def test_cli_never_writes_reports_into_archive(decoded_pass, monkeypatch):
     output = decoded_pass.parent / "reports"
     monkeypatch.setattr(
-        "sys.argv", ["audit", "build", "--archive", str(decoded_pass.parent), "--output-dir", str(output)]
+        "sys.argv",
+        [
+            "audit",
+            "build",
+            "--archive",
+            str(decoded_pass.parent),
+            "--selection",
+            "unused.json",
+            "--output-dir",
+            str(output),
+        ],
     )
     assert main() == 1
     assert not output.exists()

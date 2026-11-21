@@ -1,6 +1,3 @@
-# Custom exceptions for this project
-# Add any project-specific ignores here
-
 # OS generated files
 .DS_Store
 .DS_Store?
@@ -150,5 +147,18 @@ cython_debug/
 # personal testing scripts
 /testing/
 
-# Local development journal; research specifications/reports remain versioned.
+# Local prediction images
+/outputs/
+
+# Private research notes and other files
+/docs/
+/research/
+/dev_passes.json
 /logs.md
+
+# Downloaded orbital data and its temporary download file
+/latest_omms.json
+/latest_omms.json.tmp
+
+# Verification runner specific to the private archive
+/tools/verify_map_predictor.py

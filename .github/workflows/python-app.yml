@@ -53,7 +53,7 @@ jobs:
       - name: Type check with ty
         run: uv run ty check .
 
-      - name: Test decoded input contracts
+      - name: Test inputs and geometry
         run: uv run pytest -q
       
       - name: Verify lock file is up-to-date

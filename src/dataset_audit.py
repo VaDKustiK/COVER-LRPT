@@ -1,9 +1,3 @@
-"""Read-only archive audit and portable, SHA-256-verified experiment inputs.
-
-Run ``python -m src.dataset_audit --help``. Output is exclusively in the explicit
-output directory, never within the archive. Existing reports are not overwritten.
-"""
-
 import argparse
 import hashlib
 import json
@@ -139,9 +133,6 @@ def implementation_record() -> dict[str, Any]:
         *sorted((REPO / "src").glob("*.py")),
         REPO / "pyproject.toml",
         REPO / "uv.lock",
-        REPO / "docs/input_contract.md",
-        REPO / "docs/experiment_protocol.md",
-        REPO / "docs/uncertainties.md",
     ]
     packages = ("numpy", "cbor2", "opencv-python-headless", "skyfield")
     result: dict[str, Any] = {
@@ -302,8 +293,8 @@ def main() -> int:
     sub = parser.add_subparsers(dest="command", required=True)
     build = sub.add_parser("build", help="inventory archive and freeze selected decoded inputs")
     build.add_argument("--archive", type=Path, required=True)
-    build.add_argument("--selection", type=Path, default=REPO / "dev_passes.json")
-    build.add_argument("--policy", type=Path, default=REPO / "research/dataset_policy.json")
+    build.add_argument("--selection", type=Path, required=True)
+    build.add_argument("--policy", type=Path, default=REPO / "config/dataset_policy.json")
     build.add_argument("--output-dir", type=Path, required=True)
     verify = sub.add_parser("verify", help="verify selected input bytes against a saved manifest")
     verify.add_argument("--archive", type=Path, required=True)

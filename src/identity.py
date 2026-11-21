@@ -1,5 +1,3 @@
-"""Cross-check identity evidence; never repair labels or choose an orbit silently."""
-
 import re
 from dataclasses import dataclass
 from typing import Any

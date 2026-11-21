@@ -1,0 +1,506 @@
+{
+  "reference": "SatDump separately compiled C++ raytrace_to_earth, no COVER geometry imports",
+  "raytracer_upstream_commit": "9fee0793c7d42bea2d401d330422e18c33c126fa",
+  "dependency_sha256": {
+    "common/geodetic/euler_raytrace.cpp": "3288787f2a753abbf88807c47ea8dace8bed6f9e400e04ba17619f17a50d7206",
+    "common/geodetic/geodetic_coordinates.cpp": "ac0270d069efeae1fc49e2cd03e660c7c197d2289a7e08ca738e0d719750788f",
+    "common/geodetic/euler_coordinates.cpp": "e1f08e80d82587b91a3dd3b6cb1832ec19bfac1af19850d1cf349505d5955340",
+    "common/geodetic/euler_raytrace.h": "11e674d479a8d885ef3fdc64ae4636773202e5cdcff18fe75731d56838f36884",
+    "common/geodetic/geodetic_coordinates.h": "371401f8c3373934d391d72356fdb9c8c5f6da4f3e8eb885ea32b6bcae554a16",
+    "common/geodetic/euler_coordinates.h": "b5311d2eee54aef2b93afa09ff33552b2ff7dfbb2aa458ad2666730e949edc13",
+    "common/geodetic/wgs84.h": "81fe33e51c2f2f0bef9d877701adf4c182a254655d8f4b700d76e69cfbe32e3a",
+    "libs/predict/unsorted.c": "da5b5ecf00d6230d33bebd422eba833da279779f31332ef51d785402c9eef423",
+    "libs/predict/unsorted.h": "5b00bedd27e7902f6965a78adc133cf3270f20f7388c1a1e52d848950a963e02",
+    "libs/predict/defs.h": "abb266b6e1220c8788bdbe93d708d53edce5cfe8e804434be81f34c5b41ae2c7",
+    "libs/predict/predict.h": "b4faa7a2bd94044b3ea01ead94e68ca686dba5e0f3afdc6647ac10988fcbbe79"
+  },
+  "driver_sha256": "caf091567481037ac911c1bb2e3359cd52f8f4f3999f31f5596e72906d0b62bb",
+  "scope": "pointing and ellipsoid only; not orbit propagation or timestamp calibration",
+  "cases": [
+    {
+      "position_ecef_km": [
+        7200.0,
+        0.0,
+        0.0
+      ],
+      "inertial_velocity_in_ecef_km_s": [
+        0.1,
+        -1.0,
+        7.3
+      ],
+      "roll_deg": -55.0,
+      "pitch_deg": 0.0,
+      "yaw_deg": 0.0,
+      "miss": false,
+      "expected_lat_lon_deg": [
+        1.6224213259210456,
+        12.518763648532305
+      ]
+    },
+    {
+      "position_ecef_km": [
+        7200.0,
+        0.0,
+        0.0
+      ],
+      "inertial_velocity_in_ecef_km_s": [
+        0.1,
+        -1.0,
+        7.3
+      ],
+      "roll_deg": 0.0,
+      "pitch_deg": 0.0,
+      "yaw_deg": 0.0,
+      "miss": false,
+      "expected_lat_lon_deg": [
+        1.6064109118161193e-17,
+        -0.0
+      ]
+    },
+    {
+      "position_ecef_km": [
+        7200.0,
+        0.0,
+        0.0
+      ],
+      "inertial_velocity_in_ecef_km_s": [
+        0.1,
+        -1.0,
+        7.3
+      ],
+      "roll_deg": 55.0,
+      "pitch_deg": 0.0,
+      "yaw_deg": 0.0,
+      "miss": false,
+      "expected_lat_lon_deg": [
+        -1.7989225678064231,
+        -12.495402707962285
+      ]
+    },
+    {
+      "position_ecef_km": [
+        7200.0,
+        0.0,
+        0.0
+      ],
+      "inertial_velocity_in_ecef_km_s": [
+        0.1,
+        -1.0,
+        7.3
+      ],
+      "roll_deg": -35.0,
+      "pitch_deg": 1.0,
+      "yaw_deg": 2.0,
+      "miss": false,
+      "expected_lat_lon_deg": [
+        0.6555487644588254,
+        5.313723519014887
+      ]
+    },
+    {
+      "position_ecef_km": [
+        7200.0,
+        0.0,
+        0.0
+      ],
+      "inertial_velocity_in_ecef_km_s": [
+        0.1,
+        -1.0,
+        7.3
+      ],
+      "roll_deg": 80.0,
+      "pitch_deg": 0.0,
+      "yaw_deg": 0.0,
+      "miss": true,
+      "expected_lat_lon_deg": null
+    },
+    {
+      "position_ecef_km": [
+        -6000.0,
+        200.0,
+        3900.0
+      ],
+      "inertial_velocity_in_ecef_km_s": [
+        4.0,
+        1.0,
+        6.0
+      ],
+      "roll_deg": -55.0,
+      "pitch_deg": 0.0,
+      "yaw_deg": 0.0,
+      "miss": false,
+      "expected_lat_lon_deg": [
+        34.24221254901651,
+        -167.59483845092913
+      ]
+    },
+    {
+      "position_ecef_km": [
+        -6000.0,
+        200.0,
+        3900.0
+      ],
+      "inertial_velocity_in_ecef_km_s": [
+        4.0,
+        1.0,
+        6.0
+      ],
+      "roll_deg": 0.0,
+      "pitch_deg": 0.0,
+      "yaw_deg": 0.0,
+      "miss": false,
+      "expected_lat_lon_deg": [
+        33.16598137323018,
+        178.09084756700364
+      ]
+    },
+    {
+      "position_ecef_km": [
+        -6000.0,
+        200.0,
+        3900.0
+      ],
+      "inertial_velocity_in_ecef_km_s": [
+        4.0,
+        1.0,
+        6.0
+      ],
+      "roll_deg": 55.0,
+      "pitch_deg": 0.0,
+      "yaw_deg": 0.0,
+      "miss": false,
+      "expected_lat_lon_deg": [
+        30.56433479896887,
+        164.3449896928055
+      ]
+    },
+    {
+      "position_ecef_km": [
+        -6000.0,
+        200.0,
+        3900.0
+      ],
+      "inertial_velocity_in_ecef_km_s": [
+        4.0,
+        1.0,
+        6.0
+      ],
+      "roll_deg": -35.0,
+      "pitch_deg": 1.0,
+      "yaw_deg": 2.0,
+      "miss": false,
+      "expected_lat_lon_deg": [
+        33.773660756293296,
+        -175.81910668661666
+      ]
+    },
+    {
+      "position_ecef_km": [
+        -6000.0,
+        200.0,
+        3900.0
+      ],
+      "inertial_velocity_in_ecef_km_s": [
+        4.0,
+        1.0,
+        6.0
+      ],
+      "roll_deg": 80.0,
+      "pitch_deg": 0.0,
+      "yaw_deg": 0.0,
+      "miss": true,
+      "expected_lat_lon_deg": null
+    },
+    {
+      "position_ecef_km": [
+        500.0,
+        300.0,
+        7200.0
+      ],
+      "inertial_velocity_in_ecef_km_s": [
+        -7.3,
+        -1.0,
+        0.6
+      ],
+      "roll_deg": -55.0,
+      "pitch_deg": 0.0,
+      "yaw_deg": 0.0,
+      "miss": false,
+      "expected_lat_lon_deg": [
+        74.16329879424086,
+        82.48805840527245
+      ]
+    },
+    {
+      "position_ecef_km": [
+        500.0,
+        300.0,
+        7200.0
+      ],
+      "inertial_velocity_in_ecef_km_s": [
+        -7.3,
+        -1.0,
+        0.6
+      ],
+      "roll_deg": 0.0,
+      "pitch_deg": 0.0,
+      "yaw_deg": 0.0,
+      "miss": false,
+      "expected_lat_lon_deg": [
+        85.3971609556338,
+        30.963756532073518
+      ]
+    },
+    {
+      "position_ecef_km": [
+        500.0,
+        300.0,
+        7200.0
+      ],
+      "inertial_velocity_in_ecef_km_s": [
+        -7.3,
+        -1.0,
+        0.6
+      ],
+      "roll_deg": 55.0,
+      "pitch_deg": 0.0,
+      "yaw_deg": 0.0,
+      "miss": false,
+      "expected_lat_lon_deg": [
+        77.6048145551349,
+        -62.24660031876317
+      ]
+    },
+    {
+      "position_ecef_km": [
+        500.0,
+        300.0,
+        7200.0
+      ],
+      "inertial_velocity_in_ecef_km_s": [
+        -7.3,
+        -1.0,
+        0.6
+      ],
+      "roll_deg": -35.0,
+      "pitch_deg": 1.0,
+      "yaw_deg": 2.0,
+      "miss": false,
+      "expected_lat_lon_deg": [
+        81.40582421720187,
+        67.95488410797614
+      ]
+    },
+    {
+      "position_ecef_km": [
+        500.0,
+        300.0,
+        7200.0
+      ],
+      "inertial_velocity_in_ecef_km_s": [
+        -7.3,
+        -1.0,
+        0.6
+      ],
+      "roll_deg": 80.0,
+      "pitch_deg": 0.0,
+      "yaw_deg": 0.0,
+      "miss": true,
+      "expected_lat_lon_deg": null
+    },
+    {
+      "position_ecef_km": [
+        -7000.0,
+        -100.0,
+        1000.0
+      ],
+      "inertial_velocity_in_ecef_km_s": [
+        1.0,
+        -1.0,
+        7.0
+      ],
+      "roll_deg": -55.0,
+      "pitch_deg": 0.0,
+      "yaw_deg": 0.0,
+      "miss": false,
+      "expected_lat_lon_deg": [
+        6.572972307038822,
+        -168.95099765624462
+      ]
+    },
+    {
+      "position_ecef_km": [
+        -7000.0,
+        -100.0,
+        1000.0
+      ],
+      "inertial_velocity_in_ecef_km_s": [
+        1.0,
+        -1.0,
+        7.0
+      ],
+      "roll_deg": 0.0,
+      "pitch_deg": 0.0,
+      "yaw_deg": 0.0,
+      "miss": false,
+      "expected_lat_lon_deg": [
+        8.177996143816616,
+        -179.1815445383114
+      ]
+    },
+    {
+      "position_ecef_km": [
+        -7000.0,
+        -100.0,
+        1000.0
+      ],
+      "inertial_velocity_in_ecef_km_s": [
+        1.0,
+        -1.0,
+        7.0
+      ],
+      "roll_deg": 55.0,
+      "pitch_deg": 0.0,
+      "yaw_deg": 0.0,
+      "miss": false,
+      "expected_lat_lon_deg": [
+        9.49270291619887,
+        170.50944734966137
+      ]
+    },
+    {
+      "position_ecef_km": [
+        -7000.0,
+        -100.0,
+        1000.0
+      ],
+      "inertial_velocity_in_ecef_km_s": [
+        1.0,
+        -1.0,
+        7.0
+      ],
+      "roll_deg": -35.0,
+      "pitch_deg": 1.0,
+      "yaw_deg": 2.0,
+      "miss": false,
+      "expected_lat_lon_deg": [
+        7.462728910264929,
+        -174.70090772649058
+      ]
+    },
+    {
+      "position_ecef_km": [
+        -7000.0,
+        -100.0,
+        1000.0
+      ],
+      "inertial_velocity_in_ecef_km_s": [
+        1.0,
+        -1.0,
+        7.0
+      ],
+      "roll_deg": 80.0,
+      "pitch_deg": 0.0,
+      "yaw_deg": 0.0,
+      "miss": true,
+      "expected_lat_lon_deg": null
+    },
+    {
+      "position_ecef_km": [
+        4000.0,
+        5000.0,
+        -3500.0
+      ],
+      "inertial_velocity_in_ecef_km_s": [
+        4.0,
+        1.0,
+        6.0
+      ],
+      "roll_deg": -55.0,
+      "pitch_deg": 0.0,
+      "yaw_deg": 0.0,
+      "miss": false,
+      "expected_lat_lon_deg": [
+        -22.897041534666105,
+        66.31064250471265
+      ]
+    },
+    {
+      "position_ecef_km": [
+        4000.0,
+        5000.0,
+        -3500.0
+      ],
+      "inertial_velocity_in_ecef_km_s": [
+        4.0,
+        1.0,
+        6.0
+      ],
+      "roll_deg": 0.0,
+      "pitch_deg": 0.0,
+      "yaw_deg": 0.0,
+      "miss": false,
+      "expected_lat_lon_deg": [
+        -28.80302607000981,
+        51.34019174590992
+      ]
+    },
+    {
+      "position_ecef_km": [
+        4000.0,
+        5000.0,
+        -3500.0
+      ],
+      "inertial_velocity_in_ecef_km_s": [
+        4.0,
+        1.0,
+        6.0
+      ],
+      "roll_deg": 55.0,
+      "pitch_deg": 0.0,
+      "yaw_deg": 0.0,
+      "miss": false,
+      "expected_lat_lon_deg": [
+        -32.84160507692047,
+        34.88253764953435
+      ]
+    },
+    {
+      "position_ecef_km": [
+        4000.0,
+        5000.0,
+        -3500.0
+      ],
+      "inertial_velocity_in_ecef_km_s": [
+        4.0,
+        1.0,
+        6.0
+      ],
+      "roll_deg": -35.0,
+      "pitch_deg": 1.0,
+      "yaw_deg": 2.0,
+      "miss": false,
+      "expected_lat_lon_deg": [
+        -26.620026003406867,
+        57.71475169503624
+      ]
+    },
+    {
+      "position_ecef_km": [
+        4000.0,
+        5000.0,
+        -3500.0
+      ],
+      "inertial_velocity_in_ecef_km_s": [
+        4.0,
+        1.0,
+        6.0
+      ],
+      "roll_deg": 80.0,
+      "pitch_deg": 0.0,
+      "yaw_deg": 0.0,
+      "miss": true,
+      "expected_lat_lon_deg": null
+    }
+  ]
+}

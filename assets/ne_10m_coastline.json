@@ -1,0 +1,19 @@
+{
+  "title": "Natural Earth 1:10 million coastline",
+  "release_tag": "v5.1.2",
+  "repository_commit": "f1890d9f152c896d250a77557a5751a93d494776",
+  "source_url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/geojson/ne_10m_coastline.geojson",
+  "source_sha256": "6f75ae0e0de157b14946e2255eb1f5486d9a13819032e26d4610852d296788f6",
+  "license": "public domain",
+  "terms_url": "https://www.naturalearthdata.com/about/terms-of-use/",
+  "description_url": "https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-coastline/",
+  "coordinate_order": "longitude, latitude in degrees; WGS84",
+  "conversion": "float64 coordinates and line boundaries preserved; properties omitted; no simplification",
+  "line_count": 4133,
+  "vertex_count": 410957,
+  "asset": {
+    "size_bytes": 3287739,
+    "sha256": "48a9d3dd272898da85b930c05ff7e87224499909e6a43f64101944304edae4c9"
+  },
+  "limitations": "Cartographic reference, not surveyed truth; 10m denotes map scale, not 10 metre accuracy."
+}
