@@ -20,3 +20,11 @@ uv run python -m src.map_predictor /path/to/pass --orbit /path/to/orbit.json --t
 ```
 
 Use a new output directory. The dataset audit takes your own pass list via `--selection` and defaults to `config/dataset_policy.json`. Coastline data comes from Natural Earth.
+
+To study which small orbital changes can be distinguished from clock and pointing offsets, run the offline diagnostic on the development group in your audit manifest.
+
+```sh
+uv run python -m src.measurement_study --archive /path/to/archive --manifest /path/to/selected_passes.json --orbit /path/to/orbits.json --output outputs/feasibility.json
+```
+
+This reports synthetic grid sensitivities per pass. Supply `--picks reader.json` once per independent reader to include raw channel-2 measurements and paired disagreements. Each sheet identifies the reader, original image bytes and reference vertices. The input fields and examples are in `tests/test_measurement_study.py`. Reported pixel shifts describe local sensitivity and the command writes a diagnostic report.

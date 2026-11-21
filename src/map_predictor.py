@@ -62,6 +62,24 @@ def landmark_report(model: MapPredictor, data: dict[str, Any], p: PassData) -> d
     }
 
 
+def perturbed_model(model: MapPredictor, parameter: str, delta: float) -> MapPredictor:
+    """Vary one clock, pointing or epoch element while holding the other inputs fixed."""
+    scanner, satellite, times = model.scanner, model.satellite, model.times
+    elements = {"mean_anomaly_deg": "MEAN_ANOMALY", "node_deg": "RA_OF_ASC_NODE"}
+    if parameter == "clock_s":
+        times = times + delta
+    elif parameter in elements:
+        fields = export_omm(satellite.model, "sensitivity experiment")
+        field = elements[parameter]
+        fields[field] = (fields[field] + delta) % 360
+        satellite = EarthSatellite.from_omm(model.ts, fields)
+    elif parameter in ("roll_deg", "pitch_deg", "yaw_deg"):
+        scanner = replace(scanner, **{parameter: getattr(scanner, parameter) + delta})
+    else:
+        raise ValueError(f"unknown perturbation {parameter}")
+    return MapPredictor(satellite, times, scanner)
+
+
 def sensitivity_report(model: MapPredictor, p: PassData) -> dict[str, Any]:
     """Finite differences at fixed ground targets, not an orbit fit or error covariance."""
     good = np.flatnonzero(p.usable_lines((2,)))
@@ -83,16 +101,7 @@ def sensitivity_report(model: MapPredictor, p: PassData) -> dict[str, Any]:
     ):
         positions = []
         for sign in (-1, 1):
-            scanner, satellite, times = model.scanner, model.satellite, model.times
-            if name == "clock_s":
-                times = times + sign * step
-            elif name == "mean_anomaly_deg":
-                fields = export_omm(satellite.model, "sensitivity experiment")
-                fields["MEAN_ANOMALY"] = (fields["MEAN_ANOMALY"] + sign * step) % 360
-                satellite = EarthSatellite.from_omm(model.ts, fields)
-            else:
-                scanner = replace(scanner, **{name: getattr(scanner, name) + sign * step})
-            changed = MapPredictor(satellite, times, scanner)
+            changed = perturbed_model(model, name, sign * step)
             positions.append(changed.geo_to_pixel(lat, lon))
         derivative = (positions[1] - positions[0]) / (2 * step)
         valid = np.isfinite(derivative).all(axis=1)
