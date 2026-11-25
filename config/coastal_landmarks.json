@@ -1,0 +1,93 @@
+{
+  "reference_sha256": "48a9d3dd272898da85b930c05ff7e87224499909e6a43f64101944304edae4c9",
+  "landmarks": [
+    {
+      "vertex": 89070,
+      "name": "Damietta Nile mouth, seaward tip"
+    },
+    {
+      "vertex": 153699,
+      "name": "Southernmost coast vertex of the Crimean mainland"
+    },
+    {
+      "vertex": 153797,
+      "name": "Westernmost tip of the Tarkhankut peninsula"
+    },
+    {
+      "vertex": 168059,
+      "name": "Southernmost mainland shore of the Gulf of Riga"
+    },
+    {
+      "vertex": 168562,
+      "name": "Easternmost shore vertex of Neva Bay in the Gulf of Finland"
+    },
+    {
+      "vertex": 170166,
+      "name": "Northernmost mainland coast of the Bothnian Bay in the Tornio coastal region"
+    },
+    {
+      "vertex": 182807,
+      "name": "Northern tip of the Bafra delta"
+    },
+    {
+      "vertex": 182864,
+      "name": "Northernmost mainland tip in the Sinop peninsula area"
+    },
+    {
+      "vertex": 183070,
+      "name": "Easternmost end of the Gulf of Izmit"
+    },
+    {
+      "vertex": 184897,
+      "name": "Northernmost shore of the Gulf of Iskenderun"
+    },
+    {
+      "vertex": 185294,
+      "name": "Southern head of Khaypudyr Bay"
+    },
+    {
+      "vertex": 185453,
+      "name": "Southernmost shore of Pechora Bay in the 53 to 55.5 E coastal sector"
+    },
+    {
+      "vertex": 185806,
+      "name": "Southernmost shore of Cheshskaya Bay"
+    },
+    {
+      "vertex": 185940,
+      "name": "Westernmost cape of the northern Kanin Peninsula (Kanin Nos)"
+    },
+    {
+      "vertex": 186435,
+      "name": "Southernmost mainland shore of Onega Bay in the White Sea"
+    },
+    {
+      "vertex": 188465,
+      "name": "Southernmost shore of the Gulf of Ob (66 to 68.5 N, 69 to 74 E)"
+    },
+    {
+      "vertex": 189322,
+      "name": "Southern head of Baydaratskaya Bay on the mainland (68 to 69.5 N)"
+    },
+    {
+      "vertex": 261888,
+      "name": "Westernmost tip of the Tyub-Karagan peninsula (44.4 to 44.7 N)"
+    },
+    {
+      "vertex": 262846,
+      "name": "Westernmost head of Kizlyar Bay (44.3 to 44.8 N)"
+    },
+    {
+      "vertex": 263106,
+      "name": "Southeastern tip of the Absheron peninsula"
+    },
+    {
+      "vertex": 299141,
+      "name": "Westernmost point of Hailuoto Island"
+    },
+    {
+      "vertex": 319089,
+      "name": "Northernmost tip of Kolguyev Island"
+    }
+  ]
+}

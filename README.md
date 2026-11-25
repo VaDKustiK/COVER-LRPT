@@ -28,3 +28,11 @@ uv run python -m src.measurement_study --archive /path/to/archive --manifest /pa
 ```
 
 This reports synthetic grid sensitivities per pass. Supply `--picks reader.json` once per independent reader to include raw channel-2 measurements and paired disagreements. Each sheet identifies the reader, original image bytes and reference vertices. The input fields and examples are in `tests/test_measurement_study.py`. Reported pixel shifts describe local sensitivity and the command writes a diagnostic report.
+
+To locate known coastal features automatically in an original channel-2 image:
+
+```sh
+uv run python -m src.coast_match /path/to/pass --orbit /path/to/orbit.json --output outputs/coast-matches.json
+```
+
+The offline matcher projects the named vertices in `config/coastal_landmarks.json` using the fitted row times. It searches for a local coastline translation within ±24 pixels. The JSON records the predicted and measured column and row, a rejection reason for unsuccessful searches, and input hashes. Accepted positions are experimental image measurements. The input orbit stays fixed. Supply `--catalog` to use another list of named vertices on the same pinned map.
